@@ -12,7 +12,7 @@ export function PikkozaLogo({ variant = 'icon', className = '', size = 'md' }: P
       <div className={`flex flex-col items-center sm:items-start ${className}`}>
         <div className="relative overflow-hidden rounded-2xl bg-white p-3 shadow-2xl shadow-indigo-900/40 border border-white/20 max-w-[320px] transition-transform hover:scale-[1.02]">
           <img
-            src="/logo.jpg"
+            src="/pikkoza-login-logo.jpeg"
             alt="Pikkoza - Doubt aaye hazaar, Pikkoza hai taiyaar!"
             className="w-full h-auto object-contain rounded-xl"
           />

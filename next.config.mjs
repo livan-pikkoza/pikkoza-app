@@ -30,7 +30,7 @@ const nextConfig = {
               "default-src 'self'",
               // Next.js emits inline bootstrap scripts; Firebase and Google Auth
               // load their browser SDK/handler resources from these origins.
-              "script-src 'self' 'unsafe-inline' https://apis.google.com https://www.gstatic.com https://accounts.google.com",
+              `script-src 'self' 'unsafe-inline'${isProduction ? '' : " 'unsafe-eval'"} https://apis.google.com https://www.gstatic.com https://accounts.google.com`,
               "style-src 'self' 'unsafe-inline'",
               "img-src 'self' data: blob: https://*.googleusercontent.com https://*.gstatic.com",
               "font-src 'self' data: https://*.gstatic.com",
