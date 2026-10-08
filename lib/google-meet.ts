@@ -6,7 +6,9 @@ interface CreateMeetEventParams {
   sessionId: string;
   subject: string;
   studentName: string;
+  studentEmail: string;
   tutorName: string;
+  tutorEmail: string;
   date: string;
   time: string;
   durationMinutes: number;
@@ -91,6 +93,9 @@ export async function createGoogleMeetEvent(params: CreateMeetEventParams): Prom
           id: eventId,
           summary: `Pikkoza Session: ${params.subject}`,
           description: `1-on-1 Doubt Solving Session on Pikkoza\nStudent: ${params.studentName}\nTutor: ${params.tutorName}\nSubject: ${params.subject}`,
+          attendees: [params.studentEmail, params.tutorEmail]
+            .filter((email) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email))
+            .map((email) => ({ email })),
           start: {
             dateTime: startDate.toISOString(),
             timeZone: 'Asia/Kolkata',
