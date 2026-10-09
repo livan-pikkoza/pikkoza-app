@@ -74,7 +74,7 @@ export default function LandingPage() {
       
       {/* ─── NAVBAR ────────────────────────────────────────── */}
       <header className="sticky top-0 z-50 backdrop-blur-xl bg-white/90 dark:bg-slate-950/80 border-b border-slate-200 dark:border-slate-800/80">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+        <div className="w-full px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
           
           <Link href="/" className="flex items-center gap-3 group">
             <PikkozaLogo size="md" className="group-hover:scale-105 transition-transform" />
@@ -132,7 +132,7 @@ export default function LandingPage() {
       <section className="relative pt-16 pb-24 lg:pt-24 lg:pb-32 overflow-hidden">
         <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[600px] h-[600px] bg-indigo-600/15 rounded-full blur-[140px] pointer-events-none" />
         
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
+        <div className="w-full px-4 sm:px-6 lg:px-8 text-center relative z-10">
           
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -224,7 +224,7 @@ export default function LandingPage() {
 
       {/* ─── WHAT IS PIKKOZA ────────────────────────────────── */}
       <section id="about" className="py-20 border-t border-slate-200 dark:border-slate-800/80 bg-slate-50/80 dark:bg-slate-900/40">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="w-full px-4 sm:px-6 lg:px-8">
           
           <div className="text-center max-w-3xl mx-auto mb-16">
             <h2 className="text-xs font-bold uppercase tracking-widest text-indigo-600 dark:text-indigo-400 mb-2">What is Pikkoza</h2>
@@ -273,7 +273,7 @@ export default function LandingPage() {
 
       {/* ─── HOW IT WORKS ────────────────────────────────────── */}
       <section id="how-it-works" className="py-20 border-t border-slate-200 dark:border-slate-800/80">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="w-full px-4 sm:px-6 lg:px-8">
           
           <div className="text-center max-w-3xl mx-auto mb-16">
             <h2 className="text-xs font-bold uppercase tracking-widest text-indigo-600 dark:text-indigo-400 mb-2">Simple Workflow</h2>
@@ -321,7 +321,7 @@ export default function LandingPage() {
 
       {/* ─── PUBLIC APPROVED TUTORS SECTION ──────────────────── */}
       <section id="tutors" className="py-20 border-t border-slate-200 dark:border-slate-800/80 bg-slate-50 dark:bg-slate-900/30">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="w-full px-4 sm:px-6 lg:px-8">
           
           <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-4">
             <div>
@@ -438,7 +438,7 @@ export default function LandingPage() {
 
       {/* ─── BENEFITS SECTION ────────────────────────────────── */}
       <section id="benefits" className="py-20 border-t border-slate-200 dark:border-slate-800/80">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="w-full px-4 sm:px-6 lg:px-8">
           
           <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
             
@@ -529,7 +529,7 @@ export default function LandingPage() {
 
       {/* ─── FOOTER ────────────────────────────────────────── */}
       <footer className="py-8 border-t border-slate-200 dark:border-slate-900 bg-slate-100 dark:bg-slate-950 text-slate-600 dark:text-slate-500 text-xs">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4">
+        <div className="w-full px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4">
           <div className="flex items-center gap-2 font-medium text-slate-600 dark:text-slate-400">
             <span>Made with ❤️ in India</span>
             <span className="text-base">🇮🇳</span>
