@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useRouter, usePathname } from 'next/navigation';
 import Link from 'next/link';
 import { useAuthStore } from '@/lib/auth-store';
@@ -23,6 +23,8 @@ import {
   AlertCircle,
   Loader2,
   Bell,
+  Menu,
+  X,
 } from 'lucide-react';
 
 export default function TutorLayout({
@@ -35,6 +37,30 @@ export default function TutorLayout({
   const { user, isAuthenticated, logout, verifySession } = useAuthStore();
   const { fetchSessions } = useSessionStore();
   const [mounted, setMounted] = useState(false);
+  const [navigationOpen, setNavigationOpen] = useState(true);
+  const navigationRef = useRef<HTMLElement>(null);
+  const menuButtonRef = useRef<HTMLButtonElement>(null);
+  const previousNavigationOpen = useRef(navigationOpen);
+
+  useEffect(() => {
+    if (!window.matchMedia('(min-width: 768px)').matches) setNavigationOpen(false);
+  }, []);
+
+  useEffect(() => {
+    if (navigationOpen && !previousNavigationOpen.current) {
+      navigationRef.current?.querySelector<HTMLElement>('a')?.focus();
+    }
+    previousNavigationOpen.current = navigationOpen;
+    if (!navigationOpen) return;
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') {
+        setNavigationOpen(false);
+        menuButtonRef.current?.focus();
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [navigationOpen]);
 
   useEffect(() => {
     setMounted(true);
@@ -103,6 +129,17 @@ export default function TutorLayout({
         
         {/* Brand Logo & Portal Tag */}
         <div className="flex items-center gap-3">
+          <button
+            ref={menuButtonRef}
+            type="button"
+            onClick={() => setNavigationOpen((open) => !open)}
+            className="p-2 -ml-2 rounded-xl text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
+            aria-label={navigationOpen ? 'Close navigation menu' : 'Open navigation menu'}
+            aria-expanded={navigationOpen}
+            aria-controls="tutor-navigation"
+          >
+            {navigationOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+          </button>
           <Link href="/tutor" className="flex items-center gap-2.5 group">
             <PikkozaLogo size="sm" className="group-hover:scale-105 transition-transform" />
             <span className="text-lg font-black tracking-tight text-slate-900 dark:text-white">
@@ -165,10 +202,11 @@ export default function TutorLayout({
       </header>
 
       {/* MAIN CONTENT WRAPPER WITH DESKTOP SIDEBAR */}
-      <div className="flex-1 flex max-w-7xl w-full mx-auto pb-20 md:pb-8">
+      <div className="flex-1 flex w-full mx-auto">
         
         {/* DESKTOP SIDEBAR */}
-        <aside className="hidden md:flex flex-col w-64 shrink-0 p-6 border-r border-slate-200 dark:border-slate-800/80 space-y-6">
+        {navigationOpen && <button type="button" className="md:hidden fixed inset-x-0 top-16 bottom-0 z-40 bg-slate-950/40" aria-label="Close navigation menu" onClick={() => { setNavigationOpen(false); menuButtonRef.current?.focus(); }} />}
+        <aside id="tutor-navigation" ref={navigationRef} className={`${navigationOpen ? 'flex' : 'hidden'} fixed top-16 bottom-0 left-0 z-50 w-72 max-w-[calc(100vw-3rem)] flex-col overflow-y-auto border-r border-slate-200 bg-white p-6 space-y-6 shadow-xl dark:border-slate-800/80 dark:bg-slate-900 md:static md:z-auto md:w-64 md:max-w-none md:shrink-0 md:overflow-visible md:border-r md:bg-transparent md:p-6 md:shadow-none md:dark:bg-transparent`}>
           
           <div className="space-y-1">
             <p className="px-3 text-xs font-bold uppercase tracking-wider text-slate-400 dark:text-slate-500 mb-2">
@@ -181,6 +219,7 @@ export default function TutorLayout({
                 <Link
                   key={item.href}
                   href={item.href}
+                  onClick={() => { setNavigationOpen(false); menuButtonRef.current?.focus(); }}
                   className={`flex items-center gap-3 px-3.5 py-2.5 rounded-xl font-medium text-sm transition-all duration-150 ${
                     isActive
                       ? 'bg-indigo-600 text-white shadow-sm shadow-indigo-500/25 font-semibold'
@@ -215,28 +254,6 @@ export default function TutorLayout({
         <main className="flex-1 p-4 sm:p-6 lg:p-8 min-w-0 overflow-hidden">
           {children}
         </main>
-      </div>
-
-      {/* MOBILE BOTTOM NAVIGATION BAR */}
-      <div className="md:hidden fixed bottom-0 left-0 right-0 z-40 bg-white/90 dark:bg-slate-900/90 backdrop-blur-lg border-t border-slate-200 dark:border-slate-800 px-2 py-1.5 flex items-center justify-around">
-        {navItems.map((item) => {
-          const Icon = item.icon;
-          const isActive = pathname === item.href;
-          return (
-            <Link
-              key={item.href}
-              href={item.href}
-              className={`flex flex-col items-center gap-1 py-1 px-3 rounded-xl transition-all ${
-                isActive
-                  ? 'text-indigo-600 dark:text-indigo-400 font-bold'
-                  : 'text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200'
-              }`}
-            >
-              <Icon className="w-5 h-5" />
-              <span className="text-[10px] tracking-tight">{item.label}</span>
-            </Link>
-          );
-        })}
       </div>
 
     </div>
